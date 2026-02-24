@@ -62,6 +62,17 @@ class Camera:
       self.target_distance -= event.y * self.zoom_sensitivity
       self.target_distance = max(1.0, self.target_distance)
 
+  def update(self, keys):
+    """Check for key-based camera controls. Called once per frame.
+
+    Handles:
+      - Z key: reset camera rotation to default orientation
+    """
+    import pygame
+    if keys[pygame.K_z]:
+      self.rot_x = 0.0
+      self.rot_y = 0.0
+
   def apply(self):
     """Set the OpenGL modelview matrix to reflect current camera state.
 
