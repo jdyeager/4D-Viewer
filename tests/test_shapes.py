@@ -1,5 +1,6 @@
 import numpy as np
 from geometry.tesseract import make_tesseract
+from geometry.pentachoron import make_pentachoron
 
 
 def test_tesseract_counts():
@@ -75,3 +76,37 @@ def test_tesseract_no_duplicate_faces():
     key = frozenset(face)
     assert key not in face_set, f"Duplicate face: {key}"
     face_set.add(key)
+
+
+# --- Pentachoron tests ---
+
+def test_pentachoron_counts():
+  """Pentachoron should have 5 vertices, 10 edges, 10 faces."""
+  p = make_pentachoron()
+  assert p.num_vertices == 5
+  assert p.num_edges == 10
+  assert p.num_faces == 10
+
+
+def test_pentachoron_all_edges_equal():
+  """All 10 edges should have the same length (regular simplex)."""
+  p = make_pentachoron()
+  lengths = []
+  for e in p.edges:
+    lengths.append(np.linalg.norm(p.vertices[e[1]] - p.vertices[e[0]]))
+  assert all(np.isclose(l, lengths[0]) for l in lengths), \
+    f"Edge lengths not equal: {lengths}"
+
+
+def test_pentachoron_centered():
+  """Centroid should be at the origin."""
+  p = make_pentachoron()
+  centroid = p.vertices.mean(axis=0)
+  assert np.allclose(centroid, 0, atol=1e-10)
+
+
+def test_pentachoron_faces_are_triangles():
+  """Every face should have exactly 3 vertices."""
+  p = make_pentachoron()
+  for face in p.faces:
+    assert len(face) == 3
