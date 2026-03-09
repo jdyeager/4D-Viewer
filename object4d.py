@@ -46,6 +46,10 @@ class Object4D:
     self.rotation = np.eye(4)
     self.camera_distance = camera_distance
 
+  def reset_rotation(self):
+    """Reset the 4D rotation to identity."""
+    self.rotation = np.eye(4)
+
   def update(self, keys):
     """Check rotation keys and update rotation state. Called once per frame.
 
@@ -54,7 +58,7 @@ class Object4D:
       - X key: reset rotation to identity
     """
     if keys[pygame.K_x]:
-      self.rotation = np.eye(4)
+      self.reset_rotation()
     for key, (plane, sign) in ROTATION_KEYS.items():
       if keys[key]:
         self.rotation = self.rotation @ rotation_matrix(plane, sign * ROTATION_SPEED)
