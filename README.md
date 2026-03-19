@@ -1,5 +1,17 @@
 # 4D-Viewer
 
+## Git Incantation Notes
+
+(I can never remember my git incantations,
+so I'm saving them here.)
+
+Commands for future reference:
+* list branches: `git branch`
+* make + switch to new branch: `git checkout -b BRANCHNAME`
+* switch to branch `git checkout BRANCHNAME`
+* make remote branch and push: `git push -u origin BRANCHNAME`
+* delete local branch: `git branch -d BRANCHNAME`
+
 ## Ultimate TODOs
 
 Some things to do in the future.
